@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Full-bleed background */
+  .auth-root{
+    position: fixed; inset: 0;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg,#2563eb,#7c3aed);
+  }
+
+  /* Wide card on desktop, stacked on mobile */
+  .auth-card{
+    width: clamp(720px, 72vw, 1200px);
+    max-height: 88vh;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .card-left{
+    padding: 48px 40px;
+    color: #fff;
+    background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .card-right{
+    padding: 48px 40px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+
+  .brand-title{font-size:40px; line-height:1.1; font-weight:800; margin:0 0 12px;}
+  .brand-copy{opacity:.92;}
+
+  .form h2{margin:0 0 16px; font-size:28px; color:#111827}
+  .form label{display:block; font-size:14px; font-weight:600; color:#374151; margin:16px 0 6px}
+  .form input{
+    width:100%; padding:14px 12px; font-size:15px;
+    border:1px solid #d1d5db; border-radius:10px; outline:none;
+    transition:border .2s, box-shadow .2s;
+  }
+  .form input:focus{border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,.15)}
+  .form button{
+    margin-top:14px; width:100%; padding:14px; border:0; border-radius:10px;
+    background:#4f46e5; color:#fff; font-weight:700; font-size:16px; cursor:pointer;
+    box-shadow:0 8px 20px rgba(79,70,229,.25); transition:transform .08s, background .2s;
+  }
+  .form button:hover{background:#4338ca}
+  .form button:active{transform:translateY(1px)}
+
+  .meta{margin-top:18px; text-align:center; font-size:14px; color:#6b7280}
+  .meta a{color:#4f46e5; text-decoration:none; font-weight:600}
+  .meta a:hover{text-decoration:underline}
+
+  /* Mobile (stacked & taller) */
+  @media (max-width: 768px){
+    .auth-card{width:94vw; grid-template-columns:1fr; min-height:88vh;}
+    .card-left{min-height:36vh; padding:32px 24px; text-align:center}
+    .card-right{padding:32px 24px}
+    .brand-title{font-size:32px}
+  }
+
+  /* Extra-wide desktops: allow more width */
+  @media (min-width: 1400px){
+    .auth-card{width: clamp(900px, 68vw, 1400px);}
+  }
+</style>
+
+<div class="auth-root">
+  <div class="auth-card">
+    <!-- Left Branding -->
+    <div class="card-left">
+      <h1 class="brand-title">AI Co-Founder Assistant</h1>
+      <p class="brand-copy">Create your account to access AI-driven market analysis, mentorship, and startup tools.</p>
+      <p class="brand-copy" style="margin-top:auto; font-size:12px; opacity:.8">© 2025 AI Assistant. All rights reserved.</p>
+    </div>
+
+    <!-- Right Form -->
+    <div class="card-right">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div style="margin-bottom:14px">
+            {% for category, message in messages %}
+              {% if category == 'success' %}
+                <div style="padding:10px 12px; border-radius:8px; font-size:14px; background:#ecfdf5; color:#047857;">
+                  {{ message }}
+                </div>
+              {% elif category == 'danger' %}
+                <div style="padding:10px 12px; border-radius:8px; font-size:14px; background:#fee2e2; color:#b91c1c;">
+                  {{ message }}
+                </div>
+              {% else %}
+                <div style="padding:10px 12px; border-radius:8px; font-size:14px; background:#eef2ff; color:#3730a3;">
+                  {{ message }}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <div class="form">
+        <h2>Create Your Account</h2>
+
+        <form method="POST">
+          <label>Username</label>
+          <input type="text" name="username" placeholder="Choose a username" required>
+
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@example.com" required>
+
+          <label>Password</label>
+          <input type="password" name="password" placeholder="Create a secure password" required>
+
+          <button type="submit">Register</button>
+        </form>
+
+        <div class="meta">
+          Already have an account?
+          <a href="{{ url_for('auth.login') }}">Login</a>
+          <div style="margin-top:8px"><a href="#">Forgot password?</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

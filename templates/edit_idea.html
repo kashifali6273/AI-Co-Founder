@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">✏️ Edit Idea</h2>
+
+  <form method="POST">
+    <div class="mb-4">
+      <label class="block font-semibold">Startup Name</label>
+      <input type="text" name="startup_name" value="{{ idea['startup_name'] }}" class="w-full border p-2 rounded" required>
+    </div>
+    <div class="mb-4">
+      <label class="block font-semibold">Tagline</label>
+      <input type="text" name="tagline" value="{{ idea['tagline'] }}" class="w-full border p-2 rounded" required>
+    </div>
+    <div class="mb-4">
+      <label class="block font-semibold">Idea</label>
+      <textarea name="idea" class="w-full border p-2 rounded" required>{{ idea['idea'] }}</textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block font-semibold">Tech Stack</label>
+      <input type="text" name="tech_stack" value="{{ idea['tech_stack'] }}" class="w-full border p-2 rounded" required>
+    </div>
+
+    <div class="flex gap-3">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">💾 Save</button>
+      <a href="{{ url_for('saved_ideas') }}" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

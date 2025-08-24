@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Full-bleed background matching auth pages */
+  .auth-root{
+    position: fixed; inset: 0;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg,#2563eb,#7c3aed);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    overflow-y: auto;
+    padding: 32px;
+  }
+
+  /* Card: wide on desktop, stacked & taller on mobile (same sizing as auth pages) */
+  .auth-card{
+    width: clamp(720px, 72vw, 1200px);
+    max-height: 92vh;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* left branding / right content */
+    overflow: hidden;
+  }
+
+  /* Left branding panel (same look) */
+  .card-left{
+    padding: 48px 40px;
+    color: #fff;
+    background: linear-gradient(135deg,#3b82f6,#8b5cf6);
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .brand-title{font-size:40px; line-height:1.05; font-weight:800; margin:0 0 12px;}
+  .brand-copy{opacity:.92; font-size:15px; line-height:1.5;}
+
+  /* Right main panel */
+  .card-right{
+    padding: 48px 40px;
+    display:flex; flex-direction:column; justify-content:flex-start;
+  }
+
+  /* Header */
+  .dash-title { font-size:28px; font-weight:800; color:#111827; margin:0 0 8px; }
+  .dash-sub { color:#6b7280; margin-bottom:20px; font-size:15px; }
+
+  /* Action buttons grid (cards that act like buttons) */
+  .actions {
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap:16px;
+    margin-bottom:18px;
+  }
+
+  .action-btn {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:18px;
+    border-radius:12px;
+    background:#f8fafc;
+    border:1px solid #eef2ff;
+    text-decoration:none;
+    color:#0f172a;
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
+    min-height:96px;
+  }
+  .action-btn h3{ margin:0 0 8px; font-size:16px; font-weight:700; }
+  .action-btn p{ margin:0; color:#475569; font-size:13px; }
+
+  .action-btn:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(15,23,42,0.12);
+    background: linear-gradient(90deg,#4f46e5,#6366f1);
+    color:#fff;
+  }
+  .action-btn:hover p{ color: rgba(255,255,255,0.9); }
+
+  /* Special styles for Logout (warning) */
+  .action-logout { background:#fff7f7; border-color:#fee2e2; }
+  .action-logout:hover { background: linear-gradient(90deg,#ef4444,#dc2626); }
+
+  /* Buttons row (primary CTA style) */
+  .btn-row { display:flex; gap:12px; margin-top:8px; flex-wrap:wrap; }
+  .btn {
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:700;
+    color:#fff;
+    text-decoration:none;
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:160px;
+    box-shadow:0 8px 20px rgba(79,70,229,.12);
+  }
+  .btn-blue { background: linear-gradient(90deg,#4f46e5,#6366f1); }
+  .btn-green { background: linear-gradient(90deg,#059669,#10b981); }
+  .btn-red { background: linear-gradient(90deg,#ef4444,#dc2626); }
+
+  .meta { margin-top:14px; color:#64748b; font-size:13px; }
+
+  /* Flash messages style (inline) */
+  .flash {
+    margin-bottom:14px;
+    border-radius:8px;
+    padding:10px 12px;
+    font-size:14px;
+  }
+  .flash-success { background:#ecfdf5; color:#047857; }
+  .flash-danger  { background:#fee2e2; color:#b91c1c; }
+  .flash-info    { background:#eef2ff; color:#3730a3; }
+
+  /* Mobile: stacked & taller */
+  @media (max-width: 768px){
+    .auth-card{ width:94vw; grid-template-columns:1fr; min-height:88vh; }
+    .card-left{ min-height:32vh; padding:32px 20px; text-align:center }
+    .card-right{ padding:32px 20px; }
+    .brand-title{ font-size:32px }
+    .actions { grid-template-columns:1fr; }
+    .btn { min-width:140px; width:100%; }
+  }
+
+  /* Extra-wide desktops */
+  @media (min-width:1400px){
+    .auth-card{ width: clamp(900px, 68vw, 1400px); }
+  }
+</style>
+
+<div class="auth-root" role="main">
+  <div class="auth-card" role="region" aria-label="Dashboard">
+    <!-- Left Branding -->
+    <div class="card-left" aria-hidden="false">
+      <h1 class="brand-title">AI Co-Founder Assistant</h1>
+      <p class="brand-copy">
+        Your smart partner to brainstorm, strategize and execute ideas — market analysis,
+        fundraising readiness, product strategy, mentorship and accelerator prep.
+      </p>
+      <p style="margin-top:auto; font-size:12px; opacity:.85">© 2025 AI Assistant. All rights reserved.</p>
+    </div>
+
+    <!-- Right Dashboard Content -->
+    <div class="card-right">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div>
+            {% for category, message in messages %}
+              {% if category == 'success' %}
+                <div class="flash flash-success">{{ message }}</div>
+              {% elif category == 'danger' %}
+                <div class="flash flash-danger">{{ message }}</div>
+              {% else %}
+                <div class="flash flash-info">{{ message }}</div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <div>
+        <div class="dash-title">Welcome, {{ username or session.get('username') }}!</div>
+        <div class="dash-sub">This is your dashboard. Start building your AI-driven startup ideas.</div>
+      </div>
+
+      <!-- Action cards as buttons -->
+      <div class="actions" role="toolbar" aria-label="Quick actions">
+        <a href="{{ url_for('home') }}" class="action-btn" title="Go to AI Co-Founder">
+          <h3> AI Co-Founder</h3>
+          <p>Generate names, taglines, tech stacks and quick idea drafts.</p>
+        </a>
+
+        <a href="{{ url_for('copilot_home') }}" class="action-btn" title="Open AI Co-Pilot">
+          <h3>AI Startup Co-Pilot</h3>
+          <p>Market analysis, fundraising readiness, product & mentor support.</p>
+        </a>
+
+       <a href="{{ url_for('saved_ideas') }}" class="action-btn" title="Saved Ideas">
+  <h3>Saved Ideas</h3>
+  <p>Access your saved generated ideas and reports.</p>
+</a>
+
+
+        <a href="{{ url_for('auth.logout') }}" class="action-btn action-logout" title="Logout">
+          <h3> Logout</h3>
+          <p>Sign out of your account securely.</p>
+        </a>
+      </div>
+
+      
+
+      <div class="meta">Tip: Click <strong>AI Co-Founder</strong> to quickly generate new ideas or open <strong>Co-Pilot</strong> for deeper analyses.</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

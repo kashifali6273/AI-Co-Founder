@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen w-full bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 flex flex-col items-center">
+
+  <!-- Hero Section -->
+  <div class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 py-16 px-6 mb-10 shadow-lg">
+    <div class="max-w-4xl mx-auto text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-md">
+        AI Co-Founder Assistant
+      </h1>
+      <p class="text-lg md:text-xl opacity-90">
+        Describe your startup idea and let AI generate a <span class="font-semibold">name</span>, 
+        <span class="font-semibold">tagline</span>, <span class="font-semibold">tech stack</span>, and more. 
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Card with Gradient Border -->
+  <div class="w-full max-w-4xl p-[2px] bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-2xl shadow-2xl -mt-12 relative z-10">
+    <div class="bg-white rounded-2xl p-8 md:p-12">
+      <form method="POST" action="{{ url_for('generate') }}" class="space-y-6">
+        
+        <!-- Textarea -->
+        <textarea 
+          name="idea" 
+          placeholder="Write your startup idea here... (e.g., An AI platform for automating small business workflows)" 
+          rows="6" 
+          required
+          class="w-full p-4 border border-gray-300 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+        ></textarea>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col md:flex-row gap-4">
+          <button type="submit" 
+            class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 text-lg font-semibold rounded-xl shadow-md hover:from-indigo-700 hover:to-purple-700 transition">
+             Generate My Startup
+          </button>
+
+          <a href="{{ url_for('dashboard') }}" 
+            class="flex-1 bg-gray-100 text-gray-800 py-4 px-6 text-lg font-semibold rounded-xl shadow hover:bg-gray-200 text-center transition">
+             Back to Dashboard
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer Note -->
+  <p class="text-sm text-gray-500 mt-10 text-center">
+     Powered by AI — turning your ideas into startup blueprints
+  </p>
+</div>
+{% endblock %}
