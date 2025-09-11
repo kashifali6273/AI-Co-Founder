@@ -49,26 +49,29 @@ In short, **AI Co-Founder helps you move from concept to implementation faster**
 
 
 ##  LOGIN 
-![Dashboard Screenshot](Screenshots/LOGIN.png)  
-
-## SIGNUP 
-![Dashboard Screenshot](Screenshots/SIGNUP.png)  
-
-##  LOGIN 
-![Dashboard Screenshot](Screenshots/LOGIN.png)   
-
-##  LOGIN 
-![Dashboard Screenshot](Screenshots/LOGIN.png) 
-
-##  LOGIN 
-![Dashboard Screenshot](Screenshots/LOGIN.png) 
-
-##  LOGIN 
-![Dashboard Screenshot](Screenshots/LOGIN.png)  
-
-##  LOGIN 
-![Dashboard Screenshot](Screenshots/LOGIN.png)   
-
+![Dashboard Screenshot](ScreenShots/LOGIN.png)  
+---------------------------------------------------
+##  SIGNUP 
+![Dashboard Screenshot](ScreenShots/SIGNUP.png)  
+---------------------------------------------------
+##  DASHBOARD 
+![Dashboard Screenshot](ScreenShots/DASHBOARD.png)  
+---------------------------------------------------
+##  AI-CO-FOUNDER 
+![Dashboard Screenshot](ScreenShots/AI-COFOUNDER.png)  
+---------------------------------------------------
+##  AI-CO-FOUNDER RESULTS 
+![Dashboard Screenshot](ScreenShots/COFOUNDER-Results.png)  
+---------------------------------------------------
+##  SAVED IDEAS 
+![Dashboard Screenshot](ScreenShots/SAVED-IDEAS.png)  
+---------------------------------------------------
+##  AI-CO PILOT 
+![Dashboard Screenshot](ScreenShots/AI-CO-PILOT.png)  
+---------------------------------------------------
+##  CO-PILOT TOOL 
+![Dashboard Screenshot](ScreenShots/COPILOTTOOL.png)  
+---------------------------------------------------
 ---
 
 ## 📦 Installation
